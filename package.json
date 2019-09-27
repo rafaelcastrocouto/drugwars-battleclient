@@ -1,9 +1,9 @@
 {
   "name": "DrugWars-BattleClient",
-  "version": "0.0.01",
+  "version": "0.0.02",
   "author": "rafaelcastrocouto",
   "description": "drugwars.io - Card Game BattleClient",
-  "homepage": "drugwars.io",
+  "homepage": "https://drugwars.io",
   "readmeFilename": "README.md",
   "engine": "node >= 0.10.x",
   "repository": {

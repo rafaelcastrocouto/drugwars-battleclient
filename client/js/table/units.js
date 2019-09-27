@@ -22,7 +22,7 @@ game.units = {
   },
   buy: function (side) {
     game.player.picks.forEach(function (pick) {
-      var unit = game.units.clone(game[side].unitsDeck.children('.pc-'+pick));
+      var unit = game.units.clone(game[side].unitsDeck.children('.unit-'+pick));
       unit.appendTo(game[side].skills.hand);
       unit.on('mousedown touchstart', game.card.select);
       if (!(side == 'player' || game.mode == 'library' || game.mode == 'local')) {

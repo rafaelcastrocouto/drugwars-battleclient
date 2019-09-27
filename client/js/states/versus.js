@@ -28,8 +28,6 @@ game.states.vs = {
     this.buildMap();
     this.player.removeClass('slide');
     this.enemy.removeClass('slide');
-    game.units.build('player');
-    game.units.build('enemy');
     this.toTable();
   },
   buildMap: function () {
@@ -43,10 +41,17 @@ game.states.vs = {
     this.playername.text(game.player.name);
     if (!game.player.type) game.player.type = 'challenged';
     if (!game.player.picks) game.player.picks = game.states.vs.playerPicks();
-    game.deck.build({
-      name: 'heroes',
+    //console.log(game.player.picks)
+    game.player.picks.forEach(function (pick) {
+      //console.log('.unit-'+pick)
+      var unit = game.units.clone(game.player.unitsDeck.children('.unit-'+pick));
+      unit.appendTo(game.states.vs.playerdeck);
+    });
+    game.states.vs.playerinfo.text(game.player.totalCards);
+    /*game.deck.build({
+      name: 'units',
       filter: game.player.picks,
-      cb: function (deck) {
+      cb: function (deck) { console.log(game.player.picks,deck)
         deck.addClass('vsplayerdeck').appendTo(game.states.vs.playerdeck);
         var ch = deck.children();
         ch.sort(function (a,b) { 
@@ -54,7 +59,7 @@ game.states.vs = {
         });
         deck.append(ch);
       }
-    });
+    });*/
     //game.skill.calcMana('player');
     //if (game.mode != 'library') this.playerinfo.text(game.data.ui.cardsperturn+': '+game.player.cardsPerTurn);
     //else {
@@ -71,8 +76,14 @@ game.states.vs = {
     this.enemyname.text(game.enemy.name);
     if (!game.enemy.type) game.enemy.type = 'challenger';
     if (!game.enemy.picks) game.enemy.picks = game.states.vs.enemyPicks();
-    game.deck.build({
-      name: 'heroes',
+    game.enemy.picks.forEach(function (pick) {
+      var unit = game.units.clone(game.enemy.unitsDeck.children('.unit-'+pick));
+      unit.appendTo(game.states.vs.enemydeck);
+    });
+    game.states.vs.playerinfo.text(game.player.totalCards);
+    /*game.deck.build({
+    /*game.deck.build({
+      name: 'units',
       filter: game.enemy.picks,
       cb: function (deck) {
         deck.addClass('vsenemyrdeck').appendTo(game.states.vs.enemydeck);
@@ -82,7 +93,7 @@ game.states.vs = {
         });
         deck.append(ch);
       }
-    });
+    });*/
     //game.skill.calcMana('enemy');
     //this.enemyinfo.text(game.data.ui.cardsperturn+': '+game.enemy.cardsPerTurn);
   },

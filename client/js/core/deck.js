@@ -38,7 +38,7 @@ game.deck = {
       }
       if (found || !filter) {
         herodata.hero = heroid;
-        herodata.speed = game.defaultSpeed;
+        if (!herodata.speed) herodata.speed = game.defaultSpeed;
         herodata.bounty = game.heroBounty;
         herodata.kd = true;
         herodata.buffsBox = true;
@@ -63,6 +63,7 @@ game.deck = {
       var found = false;
       if (filter) {
         $.each(filter, function (i, pick) {
+          //console.log(pick,unittype,units)
           if (pick === unittype) { found = true; }
         });
       }
@@ -71,10 +72,11 @@ game.deck = {
           unitdata.label = unitid;
           unitdata.unit = unittype;
           unitdata.attribute = 'common';
+          unitdata.attribute = 'common';
           if (!unitdata.bounty) unitdata.bounty = game.unitBounty;
           unitdata.buffsBox = true;
           unitdata.className = [
-            unittype+'-'+unitid,
+            'unit'+'-'+unitid,
             unittype,
             'units'
           ].join(' ');

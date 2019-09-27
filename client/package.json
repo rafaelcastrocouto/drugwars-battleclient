@@ -1,9 +1,9 @@
 {
-  "name": "FODA",
-  "version": "0.5.33",
+  "name": "DrugWars-BattleClient",
+  "version": "0.0.02",
   "author": "rafaelcastrocouto",
-  "description": "Fight Over Dat Ancient - Card Game",
-  "homepage": "https://foda-app.herokuapp.com/",
+  "description": "drugwars.io - Card Game BattleClient",
+  "homepage": "https://drugwars.io",
   "main": "index.js",
   "scripts": {
     "start": "electron ."

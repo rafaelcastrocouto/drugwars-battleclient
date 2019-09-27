@@ -58,13 +58,25 @@ game.card = {
     $('<div>').appendTo(portrait).addClass('overlay');
     $('<h1>').addClass('type').appendTo(fieldset).text(data.name);
     current = $('<div>').addClass('current').appendTo(fieldset);
-    if (data.hp) {
-      $('<p>').addClass('hp').appendTo(current).html('HP <span>' + data.hp + '</span>');
-      data['current hp'] = data.hp;
-    }
     if (data.damage) {
-      $('<p>').addClass('damage').appendTo(current).html('DMG <span>' + data.damage + '</span>');
+      $('<p>').addClass('damage').appendTo(current).html('<b>ATTACK</b><span>' + data.damage + '</span>');
       data['current damage'] = data.damage;
+    }
+    if (data.hp) {
+      $('<p>').addClass('hp').appendTo(current).html('<b>HEALTH</b><span>' + data.hp + '</span>');
+      data['current hp'] = data.hp;
+    }   
+    if (data.speed) {
+      $('<p>').addClass('speed').appendTo(current).html('<b>'+game.data.ui.speed + '</b><span>' + data.speed + '</span>');
+      if (typeof(data.speed) == 'number') {
+        data.speedInt = data.speed;
+        data.speed = game.map.getRangeStr(data.speed);
+      }
+      data['current speed'] = data.speed;
+    }
+    if (data.capacity) {
+      $('<p>').addClass('capacity').appendTo(current).html('<b>CARRY</b><span>' + data.capacity + '</span>');
+      data['current capacity'] = data.capacity;
     }
     desc = $('<div>').addClass('desc').appendTo(fieldset);
     if (data.dot) {
@@ -103,11 +115,6 @@ game.card = {
     }
     if (data.mana > 1)
       $('<p>').appendTo(desc).text(game.data.ui.mana + ': ' + data.mana).addClass('mana');
-    if (data.speed) {
-      data['current speed'] = data.speed;
-      if (typeof(data.speed) == 'number') data.speed = game.map.getRangeStr(data.speed);
-      $('<p>').appendTo(desc).text(game.data.ui.speed + ': ' + data.speed).addClass('speed');
-    }
     if (data['bonus cards']) 
       $('<p>').appendTo(desc).text(game.data.ui.bonus + ' ' + game.data.ui.cards + ': ' + data['bonus cards']);
     if (data.type == game.data.ui.channel && data.channel && data.channel > 1) {

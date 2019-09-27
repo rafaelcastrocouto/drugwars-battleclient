@@ -49,6 +49,7 @@
   position: absolute;
   bottom: 2px;
   left: 12px;
+  /* display: none; */
 }
 
 .vsplayer.slide {
@@ -89,7 +90,7 @@
   margin-right: -65px;
 }
 .vs .card .speed {
-  display: none;
+  /* display: none; */
 }
 .vs .card:hover {
   z-index: 1;
