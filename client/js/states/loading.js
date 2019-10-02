@@ -108,14 +108,14 @@ game.states.loading = {
       parsed[npc][i]['damage type'] = data[i].dmg_type;
       parsed[npc][i].hp = data[i].health;
       parsed[npc][i].damage = data[i].attack;
+      parsed[npc][i].description = data[i].desc;
       //parsed[npc][i].id =  npc + '-' + name;
     }
     return parsed;
   },
   battlejson: function (cb) {
     game.mode = 'online';
-    var ID = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJUazJRVFZCTUVJeE5FWkNNVEkxTmpOQ04wWkNOVVU0T1RFeE5rSXhSVFUyUlVRME5rTTFPUSJ9.eyJpc3MiOiJodHRwczovL2RydWd3YXJzLmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExNTQ5MTc1ODkyNTcwODUxNzU1MyIsImF1ZCI6WyJodHRwczovL2FwaS5kcnVnd2Fycy5pbyIsImh0dHBzOi8vZHJ1Z3dhcnMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU2OTUyODgwNCwiZXhwIjoxNTY5NjE1MjA0LCJhenAiOiJWcHlpUUk0YUNRWXVEd3FCMlZFOUlKM0N4RmdZNWNhTyIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwifQ.D7BNQPlJ62WKQtkJ4fAooz9rUK8Ff48ZDEXxnuBfBEADeYtTMOY0C87GOX2XG6vIriLMTbQybcZp1yp3q2dinZAGS-TAz1woXh4y4XNrZTm3GKSo31FJzpKrAkSSq32e1baxQqsZAZcUlMhHVIu-VsVxJ4-RxQ56T4in6GLKyQAgsSZDcr9SFC-bpqhWurm9PRcBNL2VkWjxCon3SLJVyKGqccYs3sMdGcz4lfMO_yp6XRFi3VynDRMZbghw7OLm5TWOb_oX0svx9uGRYk5FRfV5oLWJULnfYjXexGSnpT_vW-d6C25jJGsprI8TSYCCpx_Zo77lxjIYsAmSyAa4yg/f1449be7e09345589a8ca2fbae29e17b/7/0'; 
-    var u = 'https://dwtheapi.herokuapp.com/fight/'+ID;
+    var u = 'https://dwtheapi.herokuapp.com/fight/'+game.id;
     $.ajax({
       type: 'GET',
       url: u,
@@ -125,15 +125,19 @@ game.states.loading = {
         if (!data.error) {
           game.player.name = data.information[0].nickname;
           game.player.picks = [];
+          game.player.cardsAmount = {};
           game.player.totalCards = 0;
           // todo parse gang role ticker and trainings
           game.enemy.name = data.information[0].ennemy_nickname;
-          game.enemy.picks = ['hitman'];
+          game.enemy.picks = ['hitman', 'fbi'];
+          game.enemy.cardsAmount = {'hitman': 3, 'fbi': 2};
+          game.enemy.totalCards = 5;
           // units
           data.units.forEach(function (unitsData) {
             //console.log(unitsData)
             if (unitsData.unit) {
               game.player.picks.push(unitsData.unit);
+              game.player.cardsAmount[unitsData.unit] = unitsData.amount;
               game.player.totalCards += unitsData.amount;
             }
           });
