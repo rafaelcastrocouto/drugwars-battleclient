@@ -29,7 +29,7 @@
     "tactical"
   ],
   "dependencies": {
-    "mongodb": "^2.2.36",
+    "mongodb": "^3.1.13",
     "serve-static": "^1.14.1"
   },
   "devDependencies": {
